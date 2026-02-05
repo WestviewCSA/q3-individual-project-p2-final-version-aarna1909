@@ -1,3 +1,22 @@
 Questions:
 
 Write as many questions as you can based on the project specs.
+
+1) Why are there always wolverine bucks for the scenario? [O] 
+2) How do we code this???? [O]
+3) Do we get a maze that has been defined or do we have to generate one? [O]
+4) What is considered a "reasonable amount of time" flexibility within the run time? [O]
+5) What is the "hardest benchmarks"? [O]
+6) Can I ask my dad for help? [C]
+7) How much will this impact my grade? Is this like a test in worth? [O]
+8) How do you use queues in this assignment? [O]
+9) What is a "generous set time limit"? [O]
+10) What defines an optimal path? [O]
+11) How long do we get for this project; when is each part due? [C]
+12) Do we have to use both coordinates and visual or forms of output? [C]
+13) Why are there two forms of output? [O]
+14) Can you explain more of command line arguments? [O]
+15) What is a switch? [O]
+16) What should I expect to learn from this project, what do 
+I need to know, and why are we doing this project? [O]
+17) Do we get starter code? [C]
