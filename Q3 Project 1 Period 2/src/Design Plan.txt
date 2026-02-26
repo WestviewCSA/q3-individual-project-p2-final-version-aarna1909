@@ -1,0 +1,17 @@
+Design Plan
+
+Week 1:
+- Creating Arrays to read maps for both kinds
+- Adding exceptions to the map readings
+
+Week 2:
+- Implement Queue and Stacks code
+- Command Line Arguments
+
+Week 3:
+- Find optimal paths and run time requirement is met
+- Testing
+
+Week 4:
+- Final Changes
+- Testing

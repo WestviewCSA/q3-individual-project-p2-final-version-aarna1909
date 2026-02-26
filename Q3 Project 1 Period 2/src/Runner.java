@@ -13,31 +13,60 @@ public class Runner {
 	private static int nums; // total sections
 	
 	public static void main(String[] name) {
-		readQueueFile("hardMap1c"); // calls the method to run
+		try {
+			readFile("easyMap1"); // calls the method to run
+		} catch(IllegalMapCharacterException e) {
+			System.out.println(e.getMessage());
+		} catch(IncompleteMapException e) {
+			System.out.println(e.getMessage());
+		} catch (IncorrectMapFormatException e) {
+			System.out.println(e.getMessage());
+		} catch (IllegalCommandLineInputException e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
-	public static void readFile(String fileName) {
+	public static void readFile(String fileName) throws IllegalMapCharacterException, IncompleteMapException, IncorrectMapFormatException, IllegalCommandLineInputException {
 		File file = new File(fileName);
 
 		try {
 		
 			Scanner scanner = new Scanner(file);
-			
+
+
 			// amount of rows, columns, and sections there are in the map is saved to an int variable
 			rows = Integer.parseInt(scanner.next());
 			cols = Integer.parseInt(scanner.next());
 			nums = Integer.parseInt(scanner.next());
+			
+			//check integers for the first row 
+			if(rows <= 0 || cols <= 0 || nums <= 0) {
+				 throw new IncorrectMapFormatException("IncorrectMapFormatException");
+			}
+
 			
 			mapArr = new String[rows*nums][cols]; // 2d array with columns, rows, and sections
 
 			for(int r = 0; r < mapArr.length; r++) {
 				String newRow = scanner.next(); // gets next value
 				
+				if(newRow.length() != cols) {
+					throw new IncompleteMapException("IncompleteMapException");
+				}
+								
 				for(int c = 0; c < cols; c++) {
-					mapArr[r][c] = newRow.substring(c, c+1); // getting each character from the string
+					//check for illegal characters
+					if(!(newRow.substring(c, c+1).equals("w")) && !(newRow.substring(c, c+1).equals("@")) && !(newRow.substring(c, c+1).equals(".")) && !(newRow.substring(c, c+1).equals("|")) && !(newRow.substring(c, c+1).equals("$"))) {
+						 throw new IllegalMapCharacterException("IllegalMapCharacterException");
+					
+					}
+					else {
+						mapArr[r][c] = newRow.substring(c, c+1); // getting each character from the string
+
+					}
 				}
 			}
-
+			
 			System.out.println(Arrays.deepToString(mapArr)); // printing map
 			scanner.close();
 
