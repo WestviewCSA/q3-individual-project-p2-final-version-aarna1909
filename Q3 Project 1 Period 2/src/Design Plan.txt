@@ -9,7 +9,7 @@ Week 2:
 - Command Line Arguments
 
 Week 3:
-- Find optimal paths and run time requirement is met
+- Finish optimal paths and run time requirement is met
 - Testing
 
 Week 4:

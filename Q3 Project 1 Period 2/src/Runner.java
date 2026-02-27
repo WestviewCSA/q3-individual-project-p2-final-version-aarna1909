@@ -2,8 +2,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Queue;
 
 public class Runner {
 	
@@ -11,6 +14,10 @@ public class Runner {
 	private static int rows;
 	private static int cols;
 	private static int nums; // total sections
+	private static int wolvX;
+	private static int wolvY;
+	
+
 	
 	public static void main(String[] name) {
 		try {
@@ -46,7 +53,7 @@ public class Runner {
 
 			
 			mapArr = new String[rows*nums][cols]; // 2d array with columns, rows, and sections
-
+			
 			for(int r = 0; r < mapArr.length; r++) {
 				String newRow = scanner.next(); // gets next value
 				
@@ -78,7 +85,7 @@ public class Runner {
 		}
 	}
 	
-	public static void readQueueFile(String fileName) {
+	public static void readQueueFile(String fileName) throws IllegalMapCharacterException, IncorrectMapFormatException {
 		File file = new File(fileName);
 
 		try {
@@ -89,18 +96,27 @@ public class Runner {
 			cols = Integer.parseInt(scanner.next());
 			nums = Integer.parseInt(scanner.next());
 			
+			if(rows <= 0 || cols <= 0 || nums <= 0) {
+				 throw new IncorrectMapFormatException("IncorrectMapFormatException");
+			}
+
 			mapArr = new String[rows*nums][cols]; // 2d array with columns, rows, and sections
-			
+
 			while(scanner.hasNext()) {
 				String value = scanner.next();
+				
+				if(!value.equals("w") && !value.equals("@") && !value.equals("$") && !value.equals("|")) {
+					 throw new IllegalMapCharacterException("IllegalMapCharacterException");
+				}
 				
 				//saves the row, col, and section for each character
 				int row = Integer.parseInt(scanner.next());
 				int col = Integer.parseInt(scanner.next());
 				int num = Integer.parseInt(scanner.next());
+
 				
 				//the row location is equal to the row in the file plus the total amount of rows already read 
-				if(nums == 0) {
+				if(row >= rows || col >= cols || num>= nums) { 
 					mapArr[row][col] = value;
 				}
 				else {
@@ -126,6 +142,26 @@ public class Runner {
 			e.printStackTrace();
 			//handle exception
 		}
+	}
+	
+	public static void Queue() {
+		Queue<HashMap<String, ArrayList<Integer>>> myQueue = new LinkedList<>(); // queue hashmaps
+		ArrayList<Integer> coords = new ArrayList<>();
+		HashMap<String, ArrayList<Integer>> chars = new HashMap<>(); // hashmap for coordinates: characters and the coordinates
+		
+		//get position of wolverine buck
+		for(int i = 0; i < mapArr.length; i++) {
+			for(int c = 0; c < mapArr[0].length; c++ ) {
+				if(mapArr[i][c] == "w") {
+					coords.add(i);
+					coords.add(c);
+				}
+			}
+		}
+		
+		//enqueue
+		
+		
 	}
 	
 }
