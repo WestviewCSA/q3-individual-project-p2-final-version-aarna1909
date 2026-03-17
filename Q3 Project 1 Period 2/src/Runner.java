@@ -16,6 +16,9 @@ public class Runner {
 	private static int nums; // total sections
 	private static int wolvX;
 	private static int wolvY;
+	private static int goalX;
+	private static int goalY;
+
 	
 
 	
@@ -146,27 +149,67 @@ public class Runner {
 	
 	public static void Queue() {
 		
-		Queue<ArrayList> queue = new LinkedList<>();
+		// use two ArrayLists to store the row and col of each position in the queue
+		// front keeps track of which position we are looking at next
+		ArrayList<Integer> queueRow = new ArrayList<>();
+		ArrayList<Integer> queueCol = new ArrayList<>();
+		int front = 0;
 		
 		// enqueue start position
-		for(int i = 0; i < rows; i++) { 
-			for(int j = 0; j < rows; j++) {
+		queueRow.add(wolvX);
+		queueCol.add(wolvY);
+		
+		// visited array keeps track of already checked
+		boolean[][] visited = new boolean[mapArr.length][cols];
+		
+		// arrays store where we came from so we can trace the path back
+		int[][] x = new int[mapArr.length][cols];
+		int[][] y = new int[mapArr.length][cols];
+		visited[wolvX][wolvY] = true;
+		
+		boolean found = false;
+		
+		while(front < queueRow.size() && !found) {
+			
+			// dequeue next location
+			int r = queueRow.get(front);
+			int c = queueCol.get(front);
+			front++; // move to the next item in the queue
+			
+			// check all 4 sides — north, south, east, west
+			int[] sideR = {r-1, r+1, r,   r  };
+			int[] sideC = {c,   c,   c+1, c-1};
+			
+			for(int i = 0; i < 4; i++) {
+				int sr = sideR[i];
+				int sc = sideC[i];
 				
+				// only look at this side if it is possible to move on
+				if(sr >= 0 && sr < mapArr.length && sc >= 0 && sc < cols) {
+					if(!mapArr[sr][sc].equals("@")) {
+						if(!visited[sr][sc]) {
+							
+							visited[sr][sc] = true;
+							// remember how we got here so we can trace the path later
+							x[sr][sc] = r;
+							y[sr][sc] = c;
+							
+							// check if any of these spaces hold the coin
+							if(sr == goalX && sc == goalY) {
+								found = true;
+								break;
+							}
+							
+							// enqueue this neighbor to check its neighbors later
+							queueRow.add(sr);
+							queueCol.add(sc);
+						}
+					}
+				}
 			}
 		}
-			
-		// dequeue next location
-			
-		// enqueue all walkable tiles (- @) 
-			// check any walkable tiles hold the coin -> no then go back to step one 
-			// no diagonal
-			// north, south, east, west
-		
-		// coin found -> guide wolverine to coin
-			// no square visited twice, no loopd
-			
 	}
 	
+	
 }
-
 
