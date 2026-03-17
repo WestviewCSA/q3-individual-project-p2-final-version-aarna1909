@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Stack;
 import java.util.LinkedList;
 import java.util.Random;
 import java.util.Scanner;
@@ -18,6 +19,7 @@ public class Runner {
 	private static int wolvY;
 	private static int goalX;
 	private static int goalY;
+	private static boolean coordInput = false;
 
 	public static void main(String[] name) {
 		try {
@@ -156,15 +158,15 @@ public class Runner {
 		boolean[][] visited = new boolean[mapArr.length][cols];
 
 		// arrays store old so can trace the path back
-		// -1 means not visited yet
-		int[][] parentX = new int[mapArr.length][cols];
-		int[][] parentY = new int[mapArr.length][cols];
+		int[][] oldX = new int[mapArr.length][cols];
+		int[][] oldY = new int[mapArr.length][cols];
 		for (int r = 0; r < mapArr.length; r++) {
 			for (int c = 0; c < cols; c++) {
-				parentX[r][c] = -1;
-				parentY[r][c] = -1;
+				oldX[r][c] = -1; // -1 means not visited yet
+				oldY[r][c] = -1;
 			}
 		}
+		
 		visited[wolvX][wolvY] = true;
 
 		boolean found = false;
@@ -184,13 +186,13 @@ public class Runner {
 				int sr = sideR[i];
 				int sc = sideC[i];
 
-				// only look at this side if it is possible to move on
+				// only look at side if it is possible to move on
 				if (sr >= 0 && sr < mapArr.length && sc >= 0 && sc < cols) {
 					if (!mapArr[sr][sc].equals("@")) {
 						if (!visited[sr][sc]) {
 							visited[sr][sc] = true;
-							parentX[sr][sc] = r;
-							parentY[sr][sc] = c;
+							oldX[sr][sc] = r;
+							oldY[sr][sc] = c;
 
 							// check if any spaces hold the coin
 							if (sr == goalX && sc == goalY) {
@@ -211,8 +213,8 @@ public class Runner {
 				int sr = r + rows; // same row/col but one section down
 				if (sr < mapArr.length && !mapArr[sr][c].equals("@") && !visited[sr][c]) {
 					visited[sr][c] = true;
-					parentX[sr][c] = r;
-					parentY[sr][c] = c;
+					oldX[sr][c] = r;
+					oldY[sr][c] = c;
 					if (sr == goalX && c == goalY) {
 						found = true;
 					} else {
@@ -232,22 +234,52 @@ public class Runner {
 		int r = goalX;
 		int c = goalY;
 		while (!(r == wolvX && c == wolvY)) {
-			int pr = parentX[r][c];
-			int pc = parentY[r][c];
+			int pr = oldX[r][c];
+			int pc = oldY[r][c];
 			if (!mapArr[r][c].equals("w") && !mapArr[r][c].equals("W") && !mapArr[r][c].equals("$")
 					&& !mapArr[r][c].equals("|")) {
 				mapArr[r][c] = "+";
-			}
+			} 
 			r = pr;
 			c = pc;
-		}
-		// print the whole map
-		for (int r2 = 0; r2 < mapArr.length; r2++) {
-			String line = "";
-			for (int c2 = 0; c2 < cols; c2++) {
-				line = line + mapArr[r2][c2];
+			// print the whole map
+			for (int r2 = 0; r2 < mapArr.length; r2++) {
+				String line = "";
+				for (int c2 = 0; c2 < cols; c2++) {
+					line = line + mapArr[r2][c2];
+				}
+				System.out.println(line);
 			}
-			System.out.println(line);
 		}
+	}
+	
+	public static void Stack() {
+		Stack<ArrayList<Integer>> stack = new Stack<>();
+		ArrayList<Integer> start = new ArrayList<>();
+		
+		start.add(wolvX); // add start to arraylsit
+		start.add(wolvY);
+		
+		stack.push(start); // push start to stack
+		
+		boolean[][] visited = new boolean[mapArr.length][cols]; //store visited values 
+		int[][] oldX = new int[mapArr.length][cols]; // store old values
+		int[][] oldY = new int[mapArr.length][cols];
+		
+		for(int r = 0; r < mapArr.length; r++) { //iterate through rows and cols 
+			for(int c = 0; c < cols; c++) {
+				oldX[r][c] = -1; // not visited
+				oldY[r][c] = -1; 
+			}
+		}
+		
+		visited[wolvX][wolvY] = true;
+		boolean found = false;
+		
+		while(!stack.isEmpty() && !found) {
+			
+		}
+
+		
 	}
 }
