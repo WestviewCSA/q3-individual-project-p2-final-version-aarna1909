@@ -145,23 +145,26 @@ public class Runner {
 	}
 	
 	public static void Queue() {
-		Queue<HashMap<String, ArrayList<Integer>>> myQueue = new LinkedList<>(); // queue hashmaps
-		ArrayList<Integer> coords = new ArrayList<>();
-		HashMap<String, ArrayList<Integer>> chars = new HashMap<>(); // hashmap for coordinates: characters and the coordinates
 		
-		//get position of wolverine buck
-		for(int i = 0; i < mapArr.length; i++) {
-			for(int c = 0; c < mapArr[0].length; c++ ) {
-				if(mapArr[i][c] == "w") {
-					coords.add(i);
-					coords.add(c);
-				}
+		Queue<ArrayList> queue = new LinkedList<>();
+		
+		// enqueue start position
+		for(int i = 0; i < rows; i++) { 
+			for(int j = 0; j < rows; j++) {
+				
 			}
 		}
+			
+		// dequeue next location
+			
+		// enqueue all walkable tiles (- @) 
+			// check any walkable tiles hold the coin -> no then go back to step one 
+			// no diagonal
+			// north, south, east, west
 		
-		//enqueue
-		
-		
+		// coin found -> guide wolverine to coin
+			// no square visited twice, no loopd
+			
 	}
 	
 }
