@@ -243,12 +243,25 @@ public class Runner {
 			r = pr;
 			c = pc;
 			// print the whole map
-			for (int r2 = 0; r2 < mapArr.length; r2++) {
-				String line = "";
-				for (int c2 = 0; c2 < cols; c2++) {
-					line = line + mapArr[r2][c2];
+			if(coordInput) {
+				// coordinate output — only print the + path steps
+				for(int r2 = 0; r2 < mapArr.length; r2++) {
+					for(int c2 = 0; c2 < cols; c2++) {
+						if(mapArr[r2][c2].equals("+")) {
+							int section = r2 / rows;
+							int localRow = r2 % rows;
+							System.out.println("+ " + localRow + " " + c2 + " " + section);
+						}
+					}
 				}
-				System.out.println(line);
+				} else {
+					for (int r2 = 0; r2 < mapArr.length; r2++) {
+						String line = "";
+						for (int c2 = 0; c2 < cols; c2++) {
+							line = line + mapArr[r2][c2];
+						}
+						System.out.println(line);
+					}
 			}
 		}
 	}
@@ -277,7 +290,79 @@ public class Runner {
 		boolean found = false;
 		
 		while(!stack.isEmpty() && !found) {
+			// pop next location
+			ArrayList<Integer> cur = stack.pop();
+			int r = cur.get(0);
+			int c = cur.get(1);
 			
+			if(r == goalX && c == goalY) {
+				found = true;
+				break;
+			}
+			
+			// check all 4 sides — north, south, east, west
+			int[] sideR = {r-1, r+1, r,   r  };
+			int[] sideC = {c,   c,   c+1, c-1};
+			
+			for(int i = 0; i < 4; i++) {
+				int sr = sideR[i];
+				int sc = sideC[i];
+				
+				if(sr >= 0 && sr < mapArr.length && sc >= 0 && sc < cols) {
+					if(!mapArr[sr][sc].equals("@")) {
+						if(!visited[sr][sc]) {
+							visited[sr][sc] = true;
+							oldX[sr][sc] = r;
+							oldY[sr][sc] = c;
+							ArrayList<Integer> next = new ArrayList<>();
+							next.add(sr);
+							next.add(sc);
+							stack.push(next);
+						}
+					}
+				}
+			}
+			
+			// if on the portal connection, connect to next section
+			if(mapArr[r][c].equals("|")) {
+				int sr = r + rows;
+				if(sr < mapArr.length && !mapArr[sr][c].equals("@") && !visited[sr][c]) {
+					visited[sr][c] = true;
+					oldX[sr][c] = r;
+					oldY[sr][c] = c;
+					ArrayList<Integer> next = new ArrayList<>();
+					next.add(sr);
+					next.add(c);
+					stack.push(next);
+				}
+			}
+		}
+		
+		if(!found) {
+			System.out.println("The Wolverine Store is closed.");
+			return;
+		}
+		
+		// coin found — walk backwards from goal to start and mark each step with +
+		int r = goalX;
+		int c = goalY;
+		while(!(r == wolvX && c == wolvY)) {
+			int pr = oldX[r][c];
+			int pc = oldY[r][c];
+			if(!mapArr[r][c].equals("w") && !mapArr[r][c].equals("W") && !mapArr[r][c].equals("$") && !mapArr[r][c].equals("|")) {
+				mapArr[r][c] = "+";
+			}
+			r = pr;
+			c = pc;
+		}
+		
+		// print the solved map
+		for(int r2 = 0; r2 < mapArr.length; r2++) {
+			String line = "";
+			for(int c2 = 0; c2 < cols; c2++) {
+				line = line + mapArr[r2][c2];
+			}
+			System.out.println(line);
 		}
 
 		
