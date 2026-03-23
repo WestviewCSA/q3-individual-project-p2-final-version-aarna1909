@@ -21,10 +21,7 @@ public class p1 {
 	private static int goalY;
 	private static boolean coordInput = false;
 	private static boolean wolvFound = false; 
-	public p1() {
-		
-	}
-	
+
 	public static void main(String[] name) {
 		try {
 	        String mapFile = name[name.length - 1];
@@ -288,7 +285,7 @@ public class p1 {
 			if(!mapArr[r][c].equals("w") && !mapArr[r][c].equals("W") && !mapArr[r][c].equals("$") && !mapArr[r][c].equals("|")) {
 				mapArr[r][c] = "+";
 			}
-			// if the parent is a |, we crossed sections — skip over the | and keep tracing
+			// if the parent is a |, we crossed sections skip over the | and keep tracing
 			if(pr != -1 && mapArr[pr][pc].equals("|")) {
 				r = pr;
 				c = pc;
@@ -420,7 +417,7 @@ public class p1 {
 			if(!mapArr[r][c].equals("w") && !mapArr[r][c].equals("W") && !mapArr[r][c].equals("$") && !mapArr[r][c].equals("|")) {
 				mapArr[r][c] = "+";
 			}
-			// if the parent is a |, we crossed sections — skip over the | and keep tracing
+			// if the parent is a |, we crossed sections skip over the | and keep tracing
 			if(pr != -1 && mapArr[pr][pc].equals("|")) {
 				r = pr;
 				c = pc;
