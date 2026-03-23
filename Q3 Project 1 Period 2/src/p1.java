@@ -35,8 +35,7 @@ public class p1 {
 			coordInput = false;
 			wolvFound = false;
 
-			String mapFile = name[name.length - 1]; // gets the last item in the array (name: which stores the map name
-													// last)
+			String mapFile = name[name.length - 1]; // gets the last item in the array (name: which stores the map name last)
 
 			boolean useStack = false; // switches
 			boolean inCoord = false;
@@ -116,9 +115,9 @@ public class p1 {
 			} else if (useOpt) {
 				Queue();
 			}
-			if (useTime) { // con
-				double seconds = (System.nanoTime() - start) / 1000000000.0; // convert nano seconds to seconds
-				System.out.println("Total Runtime: " + seconds + " seconds"); // print run time
+			double seconds = (System.nanoTime() - start) / 1000000000.0; // convert nano seconds to seconds
+			if (useTime) { 
+				System.out.println("\nTotal Runtime: " + seconds + " seconds"); // print run time
 			}
 
 		} catch (IllegalMapCharacterException e) {
