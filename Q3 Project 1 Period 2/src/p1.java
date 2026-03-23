@@ -40,11 +40,18 @@ public class p1 {
 	        boolean useStack = false; // switches
 	        boolean inCoord = false;
 	        boolean outCoord = false;
+	        boolean useQueue = false;
+	        boolean useOpt = false;
+
+
 	         
 	        //command line arguments
 	        for(int i = 0; i < name.length - 1; i++) { // for loop to check the switches
 	            if(name[i].equals("--Stack")) {
 	            	useStack = true; 
+	            }
+	            if(name[i].equals("--Opt")) {
+	                useOpt = true;
 	            }
 	            if(name[i].equals("--Incoordinate")) {
 	            	inCoord  = true;
@@ -52,14 +59,20 @@ public class p1 {
 	            if(name[i].equals("--Outcoordinate")) {
 	            	outCoord = true;
 	            }
+	            if(name[i].equals("--Queue")) {
+	                useQueue = true;
+	            }
+	            
 	            if(name[i].equals("--Help")) {
 	            	System.out.println("This program is used to guide the Wolverine through a maze to find the Wolverine Buck. ");
 	            	System.out.println("'--Stack' : this switch is turned on to use Stack-based pathfinding.");
 	            	System.out.println("'--Queue' : this switch is turned on to use Queue-based pathfinding.");
 	            	System.out.println("'--Time' : this switch is turned on to print the runtime in seconds.");
+	            	System.out.println("'--Opt' : this switch is turned on to use the most optimal path.");
 	            	System.out.println("'--Incoordinate' : this switch is turned on to input file is in coordinate format.");
 	            	System.out.println("'--Outcoordinate' : this switch is turned on to output in coordinate format.");
 	            	System.out.println("'--Help' : this switch is turned on to print this help message.");
+	                System.exit(0);
 	            }
 	        }
 	        
@@ -78,8 +91,10 @@ public class p1 {
 	        
 	        if(useStack) {
 	            Stack();
-	        } else {
+	        } else if(useQueue) {
 	            Queue();
+	        } else {
+	        	Queue();
 	        }
 			
 		} catch(IllegalMapCharacterException e) {
