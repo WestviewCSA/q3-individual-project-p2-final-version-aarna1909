@@ -24,7 +24,7 @@ public class p1 {
 
 	public static void main(String[] name) {
 		try {
-			mapArr = null;
+			mapArr = null; // set variables
 			rows = 0;
 			cols = 0;
 			nums = 0;
@@ -35,14 +35,14 @@ public class p1 {
 			coordInput = false;
 			wolvFound = false;
 			
-	        String mapFile = name[name.length - 1];
+	        String mapFile = name[name.length - 1]; 
 	        
-	        boolean useStack = false;
+	        boolean useStack = false; // switches
 	        boolean inCoord = false;
 	        boolean outCoord = false;
-	        
-	        for(int i = 0; i < name.length - 1; i++) {
-	            if(name[i].equals("--Stack"))         useStack = true;
+	         
+	        for(int i = 0; i < name.length - 1; i++) { // for loop to check the switches
+	            if(name[i].equals("--Stack"))         useStack = true; 
 	            if(name[i].equals("--Incoordinate"))  inCoord  = true;
 	            if(name[i].equals("--Outcoordinate")) outCoord = true;
 	        }
@@ -201,7 +201,7 @@ public class p1 {
 	public static void Queue() {
 		
 		// use two ArrayLists to store the row and col of each position in the queue
-		// front keeps track of which position we are looking at next
+		// front keeps track of which position looking at next
 		ArrayList<Integer> queueRow = new ArrayList<>();
 		ArrayList<Integer> queueCol = new ArrayList<>();
 		int front = 0;
@@ -210,10 +210,10 @@ public class p1 {
 		queueRow.add(wolvX);
 		queueCol.add(wolvY);
 		
-		// visited array keeps track of cells we already checked
+		// visited array keeps track of already checked
 		boolean[][] visited = new boolean[mapArr.length][cols];
 		
-		// arrays store where we came from so we can trace the path back
+		// arrays store where  came from to trace the path back
 		int[][] oldX = new int[mapArr.length][cols];
 		int[][] oldY = new int[mapArr.length][cols];
 		for(int r = 0; r < mapArr.length; r++) {
@@ -264,7 +264,7 @@ public class p1 {
 				}
 			}
 			
-			//if on |, jump to the next w in the next section
+			//if on "|", jump to the next "w" in the next section
 			if(mapArr[r][c].equals("|")) {
 				int nextSection = (r / rows) + 1;
 				if(nextSection < nums) {
@@ -292,7 +292,7 @@ public class p1 {
 			return;
 		}
 		
-		// coin found walk backwards from goal to start and mark each step with +
+		// coin found walk backwards from goal to start and mark each step with "+"
 		int r = goalX;
 		int c = goalY;
 		while(!(r == wolvX && c == wolvY)) {
@@ -301,7 +301,7 @@ public class p1 {
 			if(!mapArr[r][c].equals("w") && !mapArr[r][c].equals("W") && !mapArr[r][c].equals("$") && !mapArr[r][c].equals("|")) {
 				mapArr[r][c] = "+";
 			}
-			// if the parent is a |, we crossed sections skip over the | and keep tracing
+			// if the parent is a "|", we crossed sections skip over the | and keep tracing
 			if(pr != -1 && mapArr[pr][pc].equals("|")) {
 				r = pr;
 				c = pc;
@@ -313,7 +313,7 @@ public class p1 {
 		
 		// print the solved map
 		if(coordInput) {
-			// coordinate output only print the + path steps
+			// coordinate output only print the "+" path steps
 			for(int r2 = 0; r2 < mapArr.length; r2++) {
 				for(int c2 = 0; c2 < cols; c2++) {
 					if(mapArr[r2][c2].equals("+")) {
@@ -324,7 +324,6 @@ public class p1 {
 				}
 			}
 		} else {
-			// text map output print the whole map
 			for(int r2 = 0; r2 < mapArr.length; r2++) {
 				String line = "";
 				for(int c2 = 0; c2 < cols; c2++) {
@@ -345,10 +344,10 @@ public class p1 {
 		startPos.add(wolvY);
 		stack.push(startPos);
 		
-		// visited array keeps track of cells we already checked
+		// visited array keeps track of already checked
 		boolean[][] visited = new boolean[mapArr.length][cols];
 		
-		// arrays store where we came from so we can trace the path back
+		// arrays store where we came to trace the path back
 		int[][] oldX = new int[mapArr.length][cols];
 		int[][] oldY = new int[mapArr.length][cols];
 		for(int r = 0; r < mapArr.length; r++) {
