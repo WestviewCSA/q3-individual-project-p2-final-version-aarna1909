@@ -24,6 +24,17 @@ public class p1 {
 
 	public static void main(String[] name) {
 		try {
+			mapArr = null;
+			rows = 0;
+			cols = 0;
+			nums = 0;
+			wolvX = 0;
+			wolvY = 0;
+			goalX = -1;
+			goalY = -1;
+			coordInput = false;
+			wolvFound = false;
+			
 	        String mapFile = name[name.length - 1];
 	        
 	        boolean useStack = false;
@@ -42,6 +53,11 @@ public class p1 {
 	            readQueueFile(mapFile);
 	        } else {
 	            readFile(mapFile);
+	        }
+	        
+	        if(goalX == -1) {
+	        	System.out.println("The Wolverine Store is closed.");
+	        	return;
 	        }
 	        
 	        if(useStack) {
@@ -428,12 +444,26 @@ public class p1 {
 		}
 		
 		// print the solved map
-		for(int r2 = 0; r2 < mapArr.length; r2++) {
-			String line = "";
-			for(int c2 = 0; c2 < cols; c2++) {
-				line = line + mapArr[r2][c2];
-			}
-			System.out.println(line);
+		if(coordInput) {
+		    // coordinate output only print the + path steps
+		    for(int r2 = 0; r2 < mapArr.length; r2++) {
+		        for(int c2 = 0; c2 < cols; c2++) {
+		            if(mapArr[r2][c2].equals("+")) {
+		                int section = r2 / rows;
+		                int localRow = r2 % rows;
+		                System.out.println("+ " + localRow + " " + c2 + " " + section);
+		            }
+		        }
+		    }
+		} else {
+		    // text map output print the whole map
+		    for(int r2 = 0; r2 < mapArr.length; r2++) {
+		        String line = "";
+		        for(int c2 = 0; c2 < cols; c2++) {
+		            line = line + mapArr[r2][c2];
+		        }
+		        System.out.println(line);
+		    }
 		}
 	}
 	
