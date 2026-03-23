@@ -79,6 +79,21 @@ public class p1 {
 					System.exit(0);
 				}
 			}
+			
+			int count = 0; // error message for more than one command
+			if(useStack) {
+				count++;
+			}
+			if(useQueue) {
+				count++;
+			}
+			if(useOpt) {
+				count++;
+			}
+			if(count != 1) {
+			    System.out.println("IllegalCommandLineInputException");
+			    System.exit(-1);
+			}
 
 			coordInput = outCoord;
 
