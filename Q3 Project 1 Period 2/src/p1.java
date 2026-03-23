@@ -35,16 +35,32 @@ public class p1 {
 			coordInput = false;
 			wolvFound = false;
 			
-	        String mapFile = name[name.length - 1]; 
+	        String mapFile = name[name.length - 1]; // gets the last item in the array (name: which stores the map name last)
 	        
 	        boolean useStack = false; // switches
 	        boolean inCoord = false;
 	        boolean outCoord = false;
 	         
+	        //command line arguments
 	        for(int i = 0; i < name.length - 1; i++) { // for loop to check the switches
-	            if(name[i].equals("--Stack"))         useStack = true; 
-	            if(name[i].equals("--Incoordinate"))  inCoord  = true;
-	            if(name[i].equals("--Outcoordinate")) outCoord = true;
+	            if(name[i].equals("--Stack")) {
+	            	useStack = true; 
+	            }
+	            if(name[i].equals("--Incoordinate")) {
+	            	inCoord  = true;
+	            }
+	            if(name[i].equals("--Outcoordinate")) {
+	            	outCoord = true;
+	            }
+	            if(name[i].equals("--Help")) {
+	            	System.out.println("This program is used to guide the Wolverine through a maze to find the Wolverine Buck. ");
+	            	System.out.println("'--Stack' : this switch is turned on to use Stack-based pathfinding.");
+	            	System.out.println("'--Queue' : this switch is turned on to use Queue-based pathfinding.");
+	            	System.out.println("'--Time' : this switch is turned on to print the runtime in seconds.");
+	            	System.out.println("'--Incoordinate' : this switch is turned on to input file is in coordinate format.");
+	            	System.out.println("'--Outcoordinate' : this switch is turned on to output in coordinate format.");
+	            	System.out.println("'--Help' : this switch is turned on to print this help message.");
+	            }
 	        }
 	        
 	        coordInput = outCoord;
