@@ -42,6 +42,8 @@ public class p1 {
 	        boolean outCoord = false;
 	        boolean useQueue = false;
 	        boolean useOpt = false;
+	        boolean useTime = false;
+
 
 
 	         
@@ -62,7 +64,9 @@ public class p1 {
 	            if(name[i].equals("--Queue")) {
 	                useQueue = true;
 	            }
-	            
+	            if(name[i].equals("--Time")) {
+	                useTime = true;
+	            }
 	            if(name[i].equals("--Help")) {
 	            	System.out.println("This program is used to guide the Wolverine through a maze to find the Wolverine Buck. ");
 	            	System.out.println("'--Stack' : this switch is turned on to use Stack-based pathfinding.");
@@ -88,13 +92,18 @@ public class p1 {
 	        	System.out.println("The Wolverine Store is closed.");
 	        	return;
 	        }
-	        
+	        long start = System.nanoTime(); // nano time is a method that gives system time back in nano seconds
+
 	        if(useStack) {
 	            Stack();
 	        } else if(useQueue) {
 	            Queue();
-	        } else {
+	        } else if(useOpt) {
 	        	Queue();
+	        }
+	        if(useTime) { // con
+	            double seconds = (System.nanoTime() - start) / 1000000000.0; // convert nano seconds to seconds
+	            System.out.println("Total Runtime: " + seconds + " seconds"); // print run time
 	        }
 			
 		} catch(IllegalMapCharacterException e) {
